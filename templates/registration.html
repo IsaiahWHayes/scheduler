@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/login.css">
+    <title>Scheduler</title>
+</head>
+    <body>
+        <div class="container">
+            <h1>Welcome to "name goes here"</h1>
+            <hr>
+
+            <div class="reg-form">
+                <h2>Sign up to continue</h2>
+
+                <!-- login form below -->
+                <form class="login-form" action="/registration_form" method="POST">
+                    <input type="text" name="first_name" id="first_name" placeholder="First Name">
+                    <br><br>
+
+                    <input type="text" name="last_name" id="last_name" placeholder="Last Name">
+                    <br><br>
+
+                    <input type="text" name="email" id="email" placeholder="Email Address">
+                    <br><br>
+
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <br><br>
+
+                    <input type="password" name="conf_pw" id="conf_pw" placeholder="Confirm Password">
+                    <br><br>
+
+                    <button>Create Account</button>
+                </form>
+
+                <!-- registration link below -->
+                <p>Already have an account? <a href="/login">Sign in</a></p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,32 @@
+h1 {
+    margin-left: 5px;
+}
+
+.reg-form {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.login-form {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+    .login-form input {
+        width: 250px;
+        height: 25px;
+        font-size: medium;
+        padding: 8px;
+        border: thin solid black;
+        border-radius: 5px;
+    }
+
+    .login-form button {
+        width: 272px;
+        height: 35px;
+        font-size: large;
+        border-radius: 5px;
+        background-color: rgb(71, 71, 71);
+        color: white;
+    }

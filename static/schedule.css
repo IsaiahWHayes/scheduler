@@ -1,0 +1,59 @@
+.header h1 {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.header a {
+    float: right;
+    margin-right: 100px;
+    margin-top: 32px;
+}
+
+.section-one {
+    border: thin dotted red;
+    height: 800px;
+    width: 20%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.section-two {
+    border: thin dotted red;
+    height: 800px;
+    width: 15%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.section-three {
+    border: thin dotted red;
+    height: 800px;
+    width: 58%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+}
+
+.section-headers {
+    text-align: center;
+}
+
+#section-three-header {
+    text-align: left;
+}
+
+.section-subheaders {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.section-text {
+    line-height: 25px;
+}
+
+.section-two .section-text {
+    margin-top: 59px;
+    text-align: center;
+}

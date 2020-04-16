@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/login.css">
+    <title>Scheduler</title>
+</head>
+    <body>
+        <div class="container">
+            <h1>Welcome to "name goes here"</h1>
+            <hr>
+
+            <div class="reg-form">
+                <h2>Please sign in</h2>
+
+                <!-- login form below -->
+                <form class="login-form" action="/login_form" method="POST">
+                    <input type="text" name="email" id="email" placeholder="Email Address">
+                    <br><br>
+
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <br><br>
+
+                    <button>Sign In</button>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </form>
+                
+                <!-- registration link below -->
+                <p>Don't have an account? <a href="/register">Create an account</a></p>
+            </div>
+        </div>
+    </body>
+</html>
