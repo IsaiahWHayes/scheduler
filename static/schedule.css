@@ -30,7 +30,23 @@
 .section-three {
     border: thin dotted red;
     height: 800px;
-    width: 58%;
+    width: 15%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+}
+
+    .section-three button {
+        font-size: large;
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 75px;
+    }
+
+.section-four {
+    border: thin dotted red;
+    height: 800px;
+    width: 41%;
     display: inline-block;
     padding: 15px;
     vertical-align: top;
@@ -40,7 +56,7 @@
     text-align: center;
 }
 
-#section-three-header {
+#section-four-header {
     text-align: left;
 }
 
@@ -55,5 +71,13 @@
 
 .section-two .section-text {
     margin-top: 59px;
+    text-align: center;
+}
+
+.task-details-div {
+    display: inline-block;
+}
+
+.task-details-div h4 {
     text-align: center;
 }
