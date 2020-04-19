@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Welcome {{ session['users_fname'] }}!</h1>
+            <h1>Welcome {{ session['users_fname'] }} {{ session['users_lname'] }}!</h1>
 
             <!-- logout button here -->
             <a href="/logout">Logout</a>
@@ -54,12 +54,12 @@
 
             {% for each_task in users_tasks %}
             <div class="each-task">
-                <p>{{ each_task["task_name"] }}</p>
-                <ul>
-                    <li><a href="">Completed</a></li>
-                    <li><a href=""></a>Overflow</li>
-                    <li><a href=""></a>Details</li>
-                </ul>
+                <h3>{{ each_task["task_name"] }}</h3>
+
+                <!-- task functionality links -->
+                <a href="">Completed</a>
+                <a href="">Overflow</a>
+                <a href="">Details</a>
             </div>
             {% endfor %}
         </div>

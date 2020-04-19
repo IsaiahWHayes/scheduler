@@ -13,52 +13,8 @@
     margin-top: 32px;
 }
 
-.section-one {
-    height: 800px;
-    width: 20%;
-    display: inline-block;
-    padding: 15px;
-    vertical-align: top;
-}
-
-.section-two {
-    height: 800px;
-    width: 15%;
-    display: inline-block;
-    padding: 15px;
-    vertical-align: top;
-    background-color: lightgrey;
-}
-
-.section-three {
-    height: 800px;
-    width: 15%;
-    display: inline-block;
-    padding: 15px;
-    vertical-align: top;
-}
-
-    .section-three button {
-        font-size: large;
-        padding: 10px;
-        border-radius: 10px;
-        margin-left: 75px;
-    }
-
-.section-four {
-    height: 800px;
-    width: 41.5%;
-    display: inline-block;
-    padding: 15px;
-    vertical-align: top;
-}
-
 .section-headers {
     text-align: center;
-}
-
-#section-four-header {
-    text-align: left;
 }
 
 .section-subheaders {
@@ -70,10 +26,81 @@
     line-height: 25px;
 }
 
-.section-two .section-text {
-    margin-top: 59px;
-    text-align: center;
+/* section one (1) */
+.section-one {
+    height: 800px;
+    width: 20%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
 }
+
+/* section two (2) */
+.section-two {
+    height: 800px;
+    width: 15%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+    background-color: lightgrey;
+}
+
+    .section-two .section-text {
+        margin-top: 59px;
+        text-align: center;
+    }
+
+/* section three (3) */
+.section-three {
+    height: 800px;
+    width: 15%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+    /* hidden scrollbars for IE and Edge */
+    -ms-overflow-style: none; 
+}
+
+    /* hidden scrollbars for Chrome, Safari and Opera */
+    .section-three::-webkit-scrollbar {
+        display: none;
+    }
+
+    .each-task {
+        border: solid thin black;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .each-task h3 {
+        margin-top: 0px;
+        margin-bottom: 10px;
+    }
+
+    .each-task a {
+        margin-right: 7px;
+    }
+
+    .section-three button {
+        font-size: large;
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 75px;
+    }
+
+/* Section Four (4) */
+.section-four {
+    height: 800px;
+    width: 41.5%;
+    display: inline-block;
+    padding: 15px;
+    vertical-align: top;
+}
+
+    #section-four-header {
+        text-align: left;
+    }
 
 .task-top {
     margin: 0px 35px;
