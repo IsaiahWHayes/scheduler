@@ -98,13 +98,19 @@
     vertical-align: top;
 }
 
-    #section-four-header {
-        text-align: left;
-    }
-
 .task-top {
     margin: 0px 35px;
 }
+
+    .task-top .task-name-input {
+        font: bold;
+        font-size: large;
+        display: block;
+        margin: 20px 0;
+        border: none;
+        text-align: left;
+        padding: 8px;
+    }
 
     .task-top #start-time-input {
         width: 125px;
