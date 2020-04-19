@@ -1,3 +1,7 @@
+.section-containers {
+    border: solid thin black;
+}
+
 .header h1 {
     display: inline-block;
     margin-left: 15px;
@@ -10,7 +14,6 @@
 }
 
 .section-one {
-    border: thin dotted red;
     height: 800px;
     width: 20%;
     display: inline-block;
@@ -19,16 +22,15 @@
 }
 
 .section-two {
-    border: thin dotted red;
     height: 800px;
     width: 15%;
     display: inline-block;
     padding: 15px;
     vertical-align: top;
+    background-color: lightgrey;
 }
 
 .section-three {
-    border: thin dotted red;
     height: 800px;
     width: 15%;
     display: inline-block;
@@ -44,9 +46,8 @@
     }
 
 .section-four {
-    border: thin dotted red;
     height: 800px;
-    width: 41%;
+    width: 41.5%;
     display: inline-block;
     padding: 15px;
     vertical-align: top;
@@ -78,12 +79,24 @@
     margin: 0px 35px;
 }
 
+    .task-top #start-time-input {
+        width: 125px;
+    }
+
     .task-top #end-time {
-        margin-left: 81px;
+        margin-left: 44px;
+    }
+
+    .task-top #end-time-input {
+        width: 130px;
     }
 
     .task-top #location {
-        margin-left: 81px;
+        margin-left: 38px;
+    }
+
+    .task-top #category {
+        width: 100px;
     }
 
 .task-bottom {
