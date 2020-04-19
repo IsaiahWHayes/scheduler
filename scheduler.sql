@@ -44,7 +44,9 @@ CREATE TABLE IF NOT EXISTS `scheduler`.`tasks` (
   `location` VARCHAR(255) NULL,
   `start_time` TIME NULL,
   `end_time` TIME NULL,
-  `attendees` TEXT NULL,
+  `contact` TEXT NULL,
+  `note` TEXT NULL,
+  `checklist` TEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_tasks_users_idx` (`users_id` ASC) VISIBLE,
   CONSTRAINT `fk_tasks_users`
