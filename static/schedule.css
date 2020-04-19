@@ -95,6 +95,10 @@
         margin-left: 38px;
     }
 
+    .task-top #location-input {
+        padding: 1.5px;
+    }
+
     .task-top #category {
         width: 100px;
     }
