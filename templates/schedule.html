@@ -59,41 +59,41 @@
 
             <div class="new-task-form">
                 <form action="" method="">
-                    
+                    <div class="task-top">
+                        <label for="start_time" id="start-time">Start:</label>
+                        <input type="time" id="start_time_input" name="start_time">
 
-                    <label for="start_time" id="start_time_id">Start:</label>
-                    <input type="time" id="start_time_input" name="start_time">
+                        <label for="end_time" id="end-time">End:</label>
+                        <input type="time" id="end_time_input" name="end_time">
 
-                    <label for="end_time" id="end_time_id">End:</label>
-                    <input type="time" id="end_time_input" name="end_time">
+                        <label for="location" id="location">Location:</label>
+                        <input type="text" id="location-input" name="location">
+                        <br><br><br>
 
-                    <label for="location" id="location">Location:</label>
-                    <input type="text" id="location" name="location">
-                    <br><br><br>
-
-                    <label for="category" id="category">Category:</label>
-                    <select name="" id="">
-                        <option value="Work">Work</option>
-                        <option value="School">School</option>
-                        <option value="Personal">Personal</option>
-                    </select>
+                        <label for="category" id="category">Category:</label>
+                        <select name="" id="">
+                            <option value="Work">Work</option>
+                            <option value="School">School</option>
+                            <option value="Personal">Personal</option>
+                        </select>
+                    </div>
                     <br><br>
 
                     <!-- task details / Contact input section -->
-                    <div class="task-details-div contacts-div">
+                    <div class="task-bottom contacts-div">
                         <h4>Add Contacts</h4>
 
                         <textarea name="contacts" id="contacts-div" cols="32" rows="30"></textarea>
                     </div>
 
-                    <div class="task-details-div">
+                    <div class="task-bottom">
                         <h4>Add Notes</h4>
 
                         <textarea name="note" id="note" cols="32" rows="30"></textarea>
                     </div>
 
-                    <div class="task-details-div">
-                        <h4>Add a Checklist</h4>
+                    <div class="task-bottom">
+                        <h4>Add List Items</h4>
 
                         <textarea name="checklist" id="checklist" cols="32" rows="30"></textarea>
                     </div>
