@@ -16,10 +16,6 @@ def index():
 def login():
     return render_template('login.html')
 
-@app.route("/schedule")
-def schedule():
-    return render_template('schedule.html')
-
 @app.route("/login_form", methods = ["POST"])
 def login_form():
     is_valid = True
@@ -125,6 +121,19 @@ def registration_form():
         session['users_lname'] = request.form['last_name']
         return redirect("/schedule")
     return redirect("/register")
+
+@app.route("/schedule")
+def schedule():
+    if 'user_id' not in session:
+        return redirect('/')
+    
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT * FROM tasks WHERE users_id = %(users_id)s"
+    data = {
+        "users_id": session['user_id']
+    }
+    users_tasks = mysql.query_db(query, data)
+    return render_template('schedule.html', users_tasks = users_tasks)
 
 @app.route("/logout")
 def logout():

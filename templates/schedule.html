@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Welcome !</h1>
+            <h1>Welcome {{ session['users_fname'] }}!</h1>
 
             <!-- logout button here -->
             <a href="/logout">Logout</a>
@@ -50,7 +50,18 @@
         <div class="section-three section-containers">
             <h2 class="section-headers">All Tasks</h2>
 
-            <a href=""><button>New Task</button></a>
+            <a href="/schedule"><button>New Task</button></a>
+
+            {% for each_task in users_tasks %}
+            <div class="each-task">
+                <p>{{ each_task["task_name"] }}</p>
+                <ul>
+                    <li><a href="">Completed</a></li>
+                    <li><a href=""></a>Overflow</li>
+                    <li><a href=""></a>Details</li>
+                </ul>
+            </div>
+            {% endfor %}
         </div>
 
         <!-- section 4 -->
