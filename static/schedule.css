@@ -152,6 +152,7 @@
     .task-bottom textarea {
         border-radius: 10px;
         resize: none;
+        padding: 5px;
     }
 
     .new-task-form button {
