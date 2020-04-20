@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS `scheduler`.`tasks` (
   `contact` TEXT NULL,
   `note` TEXT NULL,
   `checklist` TEXT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_tasks_users_idx` (`users_id` ASC) VISIBLE,
   CONSTRAINT `fk_tasks_users`

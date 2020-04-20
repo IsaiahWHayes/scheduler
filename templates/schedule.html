@@ -54,10 +54,10 @@
 
             {% for each_task in users_tasks %}
             <div class="each-task">
-                <h3>{{ each_task["task_name"] }}</h3>
+                <h4>{{ each_task["task_name"] }}</h4>
 
                 <!-- task functionality links -->
-                <a href="">Completed</a>
+                <a href="/schedule/completed/{{each_task['id']}}">Completed</a>
                 <a href="">Overflow</a>
                 <a href="">Details</a>
             </div>
@@ -67,7 +67,7 @@
         <!-- section 4 -->
         <div class="section-four section-containers">
             <div class="new-task-form">
-                <form action="" method="">
+                <form action="/new_task_form" method="POST">
                     <div class="task-top">
                         <input class="section-headers task-name-input" type="text" name="task_name" placeholder="Task Name" autofocus>
 
@@ -94,7 +94,7 @@
                     <div class="task-bottom contacts-div">
                         <h4>Add Contacts</h4>
 
-                        <textarea name="contacts" id="contacts-div" cols="32" rows="30"></textarea>
+                        <textarea name="contact" id="contacts-div" cols="32" rows="30"></textarea>
                     </div>
 
                     <div class="task-bottom">

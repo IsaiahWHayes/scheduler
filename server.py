@@ -8,14 +8,17 @@ app.secret_key = "password please!"
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 bcrypt = Bcrypt(app)
 
+# ----- Index re-route
 @app.route("/")
 def index():
     return redirect("/login")
 
+# ----- Index
 @app.route("/login")
 def login():
     return render_template('login.html')
 
+# ----- Login form
 @app.route("/login_form", methods = ["POST"])
 def login_form():
     is_valid = True
@@ -57,10 +60,12 @@ def login_form():
             flash("User does not exist")
     return redirect("/login")
 
+# ----- Registration 
 @app.route("/register")
 def register():
     return render_template('registration.html')
 
+# ----- Registration form
 @app.route("/registration_form", methods = ["POST"])
 def registration_form():
     is_valid = True
@@ -122,6 +127,7 @@ def registration_form():
         return redirect("/schedule")
     return redirect("/register")
 
+#  ----- Schedule dashboard
 @app.route("/schedule")
 def schedule():
     if 'user_id' not in session:
@@ -135,6 +141,42 @@ def schedule():
     users_tasks = mysql.query_db(query, data)
     return render_template('schedule.html', users_tasks = users_tasks)
 
+# ----- New Task Form
+@app.route("/new_task_form", methods = ["POST"])
+def new_task_form():
+    if 'user_id' not in session:
+        return redirect('/')
+    mysql = connectToMySQL('scheduler')
+    query = "INSERT INTO tasks (users_id, task_name, start_time, end_time, location, category, contact, note, checklist, created_at, updated_at) VALUES (%(users_id)s, %(task_name)s, %(start_time)s, %(end_time)s, %(location)s, %(category)s, %(contact)s, %(note)s, %(list)s, NOW(), NOW());"
+    data = {
+        "users_id": session['user_id'],
+        "task_name": request.form['task_name'],
+        "start_time": request.form['start_time'],
+        "end_time": request.form['end_time'],
+        "location": request.form['location'],
+        "category": request.form['category'],
+        "contact": request.form['contact'],
+        "note": request.form['note'],
+        "list": request.form['checklist']
+    }
+    new_task = mysql.query_db(query, data)
+    return redirect('/schedule')
+
+# ----- Completed Task
+@app.route("/schedule/completed/<task_id>")
+def completed(task_id):
+    if 'user_id' not in session:
+        return redirect("/")
+    mysql = connectToMySQL('scheduler')
+    query = "DELETE FROM tasks WHERE id = %(id)s AND users_id = %(users_id)s;"
+    data = {
+        "id": int(task_id),
+        "users_id": session['user_id']
+    }
+    mysql.query_db(query, data)
+    return redirect("/schedule")
+
+# ----- Logout
 @app.route("/logout")
 def logout():
     session.clear
