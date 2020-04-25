@@ -130,6 +130,7 @@
 
     .task-top #location-input {
         padding: 1.5px;
+        width: 110px;
     }
 
     .task-top #category {
@@ -153,6 +154,7 @@
         border-radius: 10px;
         resize: none;
         padding: 5px;
+        width: 172px;
     }
 
     .new-task-form button {
