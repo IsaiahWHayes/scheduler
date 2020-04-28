@@ -176,6 +176,29 @@ def completed(task_id):
     mysql.query_db(query, data)
     return redirect("/schedule")
 
+@app.route("/task_details/<task_id>")
+def details(task_id):
+    if 'user_id' not in session:
+        return redirect("/")
+
+    # searching for all tasks to display in the task pane
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT * FROM tasks WHERE users_id = %(users_id)s"
+    data = {
+        "users_id": session['user_id']
+    }
+    users_tasks = mysql.query_db(query, data)
+
+    # searching for this specific task to display it's details in the details pane
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT users.id, tasks.id, tasks.users_id, task_name, location, start_time, end_time, contact, note, checklist FROM users JOIN tasks ON tasks.users_id = users.id WHERE tasks.id = %(this_task)s;"
+    data = {
+        "this_task": int(task_id)
+    }
+    this_task = mysql.query_db(query, data)
+    print(this_task)
+    return render_template("task_details.html", users_tasks = users_tasks, this_task = this_task[0])
+
 # ----- Logout
 @app.route("/logout")
 def logout():
