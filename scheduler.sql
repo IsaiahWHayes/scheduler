@@ -60,6 +60,27 @@ CREATE TABLE IF NOT EXISTS `scheduler`.`tasks` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `scheduler`.`overflow_tasks`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `scheduler`.`overflow_tasks` ;
+
+CREATE TABLE IF NOT EXISTS `scheduler`.`overflow_tasks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tasks_id` INT NOT NULL,
+  `overflowed_task` TINYINT(1) NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_overflow_tasks_tasks1_idx` (`tasks_id` ASC) VISIBLE,
+  CONSTRAINT `fk_overflow_tasks_tasks1`
+    FOREIGN KEY (`tasks_id`)
+    REFERENCES `scheduler`.`tasks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
