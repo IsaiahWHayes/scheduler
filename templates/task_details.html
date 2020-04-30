@@ -59,7 +59,7 @@
                 <!-- task functionality links -->
                 <a href="/schedule/completed/{{each_task['id']}}">Completed</a>
                 <a href="">Overflow</a>
-                <a href="/task_details/{{each_task['task.id']}}">Details</a>
+                <a href="/task_details/{{each_task['id']}}">Details</a>
             </div>
             {% endfor %}
         </div>
@@ -69,16 +69,16 @@
             <div class="new-task-form">
                 <form action="/new_task_form" method="POST">
                     <div class="task-top">
-                        <input class="section-headers task-name-input" type="text" name="task_name" placeholder="Task Name" autofocus>
+                        <input class="section-headers task-name-input" type="text" name="task_name" placeholder="Task Name" value="{{ this_task['task_name'] }}" autofocus>
 
                         <label for="start_time" id="start-time">Start:</label>
-                        <input type="time" id="start-time-input" name="start_time">
+                        <input type="time" id="start-time-input" name="start_time" value="{{this_task['start_time']}}">
 
                         <label for="end_time" id="end-time">End:</label>
-                        <input type="time" id="end-time-input" name="end_time">
+                        <input type="time" id="end-time-input" name="end_time" value="{{this_task['end_time']}}">
 
                         <label for="location" id="location">Location:</label>
-                        <input type="text" id="location-input" name="location">
+                        <input type="text" id="location-input" name="location" value="{{ this_task['location'] }}">
                         <br><br><br>
 
                         <label for="category" id="category">Category:</label>
@@ -94,19 +94,19 @@
                     <div class="task-bottom contacts-div">
                         <h4>Add Contacts</h4>
 
-                        <textarea name="contact" id="contacts-div" cols="32" rows="30"></textarea>
+                        <textarea name="contact" id="contacts-div" cols="32" rows="30">{{ this_task['contact'] }}</textarea>
                     </div>
 
                     <div class="task-bottom">
                         <h4>Add Notes</h4>
 
-                        <textarea name="note" id="note" cols="32" rows="30"></textarea>
+                        <textarea name="note" id="note" cols="32" rows="30">{{ this_task['note'] }}</textarea>
                     </div>
 
                     <div class="task-bottom">
                         <h4>Add List Items</h4>
 
-                        <textarea name="checklist" id="checklist" cols="32" rows="30"></textarea>
+                        <textarea name="checklist" id="checklist" cols="32" rows="30">{{ this_task['checklist'] }}</textarea>
                     </div>
                     <br>
 
