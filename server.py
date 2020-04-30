@@ -194,6 +194,41 @@ def completed(task_id):
     mysql.query_db(query, data)
     return redirect("/schedule")
 
+# ----- Adds a a task to the 'Overflow Tray'
+@app.route("/overflow_tray/<task_id>")
+def overflow(task_id):
+    if 'user_id' not in session:
+        return redirect("/")
+
+    # searching for this specific task
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT users.id, tasks.id, tasks.users_id, task_name, location, start_time, end_time, contact, note, checklist FROM users JOIN tasks ON tasks.users_id = users.id WHERE tasks.id = %(this_task)s;"
+    data = {
+        "this_task": int(task_id)
+    }
+    this_task = mysql.query_db(query, data)
+    
+    if this_task:
+        mysql = connectToMySQL('scheduler')
+        query = "SELECT * FROM overflow_tasks WHERE tasks_id = %(tasks_id)s;"
+        data = {
+            "tasks_id": int(task_id)
+        }
+        overflowed_task = mysql.query_db(query, data)
+
+    if overflowed_task:
+        pass
+    else:
+        mysql = connectToMySQL('scheduler')
+        query = "INSERT INTO overflow_tasks (tasks_id, created_at, updated_at) VALUES (%(tasks_id)s, NOW(), NOW());"
+        data = {
+            "tasks_id": int(task_id)
+        }
+        mysql.query_db(query, data)
+    return redirect("/schedule")
+
+
+# ----- Displays the details for a speicific task
 @app.route("/task_details/<task_id>")
 def details(task_id):
     if 'user_id' not in session:
