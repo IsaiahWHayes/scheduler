@@ -167,6 +167,24 @@ def new_task_form():
 def completed(task_id):
     if 'user_id' not in session:
         return redirect("/")
+
+    # search and delete from "overflow tasks" table first
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT * FROM overflow_tasks WHERE tasks_id = %(overflow_task)s"
+    data = {
+        "overflow_task": int(task_id)
+    }
+    overflowed_task = mysql.query_db(query, data)
+
+    if overflowed_task:
+        mysql = connectToMySQL('scheduler')
+        query = "DELETE FROM overflow_tasks WHERE id = %(id)s;"
+        data = {
+            "id": int(task_id)
+        }
+        mysql.query_db(query, data)
+    
+    # search and delete from the 'Tasks' table
     mysql = connectToMySQL('scheduler')
     query = "DELETE FROM tasks WHERE id = %(id)s AND users_id = %(users_id)s;"
     data = {
@@ -218,7 +236,6 @@ def update_task():
     data = {
         "this_task": session['detailed_task'],
         "task_name": request.form['task_name'],
-        "start_time": request.form['start_time'],
         "end_time": request.form['end_time'],
         "location": request.form['location'],
         "category": request.form['category'],
@@ -228,7 +245,6 @@ def update_task():
     }
     mysql.query_db(query, data)
     return redirect('/schedule')
-
 
 # ----- Logout
 @app.route("/logout")
