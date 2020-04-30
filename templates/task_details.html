@@ -67,7 +67,7 @@
         <!-- section 4 -->
         <div class="section-four section-containers">
             <div class="new-task-form">
-                <form action="/new_task_form" method="POST">
+                <form action="/task_details/update" method="POST">
                     <div class="task-top">
                         <input class="section-headers task-name-input" type="text" name="task_name" placeholder="Task Name" value="{{ this_task['task_name'] }}" autofocus>
 
@@ -110,7 +110,7 @@
                     </div>
                     <br>
 
-                    <button>Add Task</button>
+                    <button>Update</button>
                 </form>
             </div>
         </div>
