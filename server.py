@@ -133,13 +133,22 @@ def schedule():
     if 'user_id' not in session:
         return redirect('/')
     
+    # searches for all tasks by the user in session
     mysql = connectToMySQL('scheduler')
     query = "SELECT * FROM tasks WHERE users_id = %(users_id)s"
     data = {
         "users_id": session['user_id']
     }
     users_tasks = mysql.query_db(query, data)
-    return render_template('schedule.html', users_tasks = users_tasks)
+
+    # search for all overflow_tasks by the user in session
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE overflow_tasks.users_id = %(users_id)s"
+    data = {
+        "users_id": session['user_id']
+    }
+    users_overflow_tasks = mysql.query_db(query, data)
+    return render_template('schedule.html', users_tasks = users_tasks, users_overflow_tasks = users_overflow_tasks)
 
 # ----- New Task Form
 @app.route("/new_task_form", methods = ["POST"])
@@ -160,6 +169,7 @@ def new_task_form():
         "list": request.form['checklist']
     }
     new_task = mysql.query_db(query, data)
+    print(new_task)
     return redirect('/schedule')
 
 # ----- Completed Task
@@ -178,9 +188,9 @@ def completed(task_id):
 
     if overflowed_task:
         mysql = connectToMySQL('scheduler')
-        query = "DELETE FROM overflow_tasks WHERE id = %(id)s;"
+        query = "DELETE FROM overflow_tasks WHERE tasks_id = %(id)s;"
         data = {
-            "id": int(task_id)
+            "id": int(task_id),
         }
         mysql.query_db(query, data)
     
@@ -220,9 +230,10 @@ def overflow(task_id):
         pass
     else:
         mysql = connectToMySQL('scheduler')
-        query = "INSERT INTO overflow_tasks (tasks_id, created_at, updated_at) VALUES (%(tasks_id)s, NOW(), NOW());"
+        query = "INSERT INTO overflow_tasks (tasks_id, users_id, created_at, updated_at) VALUES (%(tasks_id)s, %(users_id)s, NOW(), NOW());"
         data = {
-            "tasks_id": int(task_id)
+            "tasks_id": int(task_id),
+            "users_id": session['user_id']
         }
         mysql.query_db(query, data)
     return redirect("/schedule")
@@ -253,6 +264,7 @@ def details(task_id):
     print(this_task)
     return render_template("task_details.html", users_tasks = users_tasks, this_task = this_task[0])
 
+# ----- Updates a previously created task
 @app.route("/task_details/update", methods =["POST"])
 def update_task():
     if 'user_id' not in session:

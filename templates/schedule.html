@@ -44,6 +44,17 @@
             <p class="section-text">Any tasks added to your <em>Overflow Tray</em> will show up here. <br>
             
             <br> Simply click the <u>overflow</u> button shown in the bottom-right corner of the button.</p><br>
+
+            {% for each_task in users_overflow_tasks %}
+            <div class="each-task">
+                <h4>{{ each_task["task_name"] }}</h4>
+
+                <!-- task functionality links -->
+                <a href="/schedule/completed/{{each_task['id']}}">Completed</a>
+                <a href="/overflow_tray/{{each_task['id']}}">Overflow</a>
+                <a href="/task_details/{{each_task['id']}}">Details</a>
+            </div>
+            {% endfor %}
         </div>
 
         <!-- section 3 -->
@@ -58,7 +69,7 @@
 
                 <!-- task functionality links -->
                 <a href="/schedule/completed/{{each_task['id']}}">Completed</a>
-                <a href="">Overflow</a>
+                <a href="/overflow_tray/{{each_task['id']}}">Overflow</a>
                 <a href="/task_details/{{each_task['id']}}">Details</a>
             </div>
             {% endfor %}

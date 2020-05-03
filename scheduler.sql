@@ -33,20 +33,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `scheduler`.`overflow_tasks`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `scheduler`.`overflow_tasks` ;
-
-CREATE TABLE IF NOT EXISTS `scheduler`.`overflow_tasks` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `overflowed_task` TINYINT(1) NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `scheduler`.`tasks`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `scheduler`.`tasks` ;
@@ -54,7 +40,6 @@ DROP TABLE IF EXISTS `scheduler`.`tasks` ;
 CREATE TABLE IF NOT EXISTS `scheduler`.`tasks` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `users_id` INT NOT NULL,
-  `overflow_tasks_id` INT NOT NULL,
   `task_name` VARCHAR(255) NULL,
   `location` VARCHAR(255) NULL,
   `start_time` TIME NULL,
@@ -67,15 +52,37 @@ CREATE TABLE IF NOT EXISTS `scheduler`.`tasks` (
   `updated_at` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_tasks_users_idx` (`users_id` ASC) VISIBLE,
-  INDEX `fk_tasks_overflow_tasks1_idx` (`overflow_tasks_id` ASC) VISIBLE,
   CONSTRAINT `fk_tasks_users`
     FOREIGN KEY (`users_id`)
     REFERENCES `scheduler`.`users` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `scheduler`.`overflow_tasks`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `scheduler`.`overflow_tasks` ;
+
+CREATE TABLE IF NOT EXISTS `scheduler`.`overflow_tasks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tasks_id` INT NOT NULL,
+  `users_id` INT NOT NULL,
+  `overflowed_task` TINYINT(1) NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_overflow_tasks_tasks1_idx` (`tasks_id` ASC) VISIBLE,
+  INDEX `fk_overflow_tasks_users1_idx` (`users_id` ASC) VISIBLE,
+  CONSTRAINT `fk_overflow_tasks_tasks1`
+    FOREIGN KEY (`tasks_id`)
+    REFERENCES `scheduler`.`tasks` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tasks_overflow_tasks1`
-    FOREIGN KEY (`overflow_tasks_id`)
-    REFERENCES `scheduler`.`overflow_tasks` (`id`)
+  CONSTRAINT `fk_overflow_tasks_users1`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `scheduler`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
