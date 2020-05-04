@@ -132,14 +132,6 @@ def registration_form():
 def schedule():
     if 'user_id' not in session:
         return redirect('/')
-    
-    # searches for all tasks by the user in session
-    mysql = connectToMySQL('scheduler')
-    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.id, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks LEFT JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE tasks.users_id = %(users_id)s AND overflow_tasks.tasks_id IS NULL"
-    data = {
-        "users_id": session['user_id']
-    }
-    users_tasks = mysql.query_db(query, data)
 
     # search for all overflow_tasks by the user in session
     mysql = connectToMySQL('scheduler')
@@ -148,6 +140,14 @@ def schedule():
         "users_id": session['user_id']
     }
     users_overflow_tasks = mysql.query_db(query, data)
+    
+    # searches for all tasks by the user in session
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.id, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks LEFT JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE tasks.users_id = %(users_id)s AND overflow_tasks.tasks_id IS NULL"
+    data = {
+        "users_id": session['user_id']
+    }
+    users_tasks = mysql.query_db(query, data)
     return render_template('schedule.html', users_tasks = users_tasks, users_overflow_tasks = users_overflow_tasks)
 
 # ----- New Task Form
@@ -245,9 +245,17 @@ def details(task_id):
     if 'user_id' not in session:
         return redirect("/")
 
+    # search for all overflow_tasks by the user in session
+    mysql = connectToMySQL('scheduler')
+    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE overflow_tasks.users_id = %(users_id)s"
+    data = {
+        "users_id": session['user_id']
+    }
+    users_overflow_tasks = mysql.query_db(query, data)
+
     # searching for all tasks to display in the "Task" pane
     mysql = connectToMySQL('scheduler')
-    query = "SELECT * FROM tasks WHERE users_id = %(users_id)s"
+    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.id, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks LEFT JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE tasks.users_id = %(users_id)s AND overflow_tasks.tasks_id IS NULL"
     data = {
         "users_id": session['user_id']
     }
@@ -261,8 +269,7 @@ def details(task_id):
     }
     this_task = mysql.query_db(query, data)
     session['detailed_task'] = int(task_id)
-    print(this_task)
-    return render_template("task_details.html", users_tasks = users_tasks, this_task = this_task[0])
+    return render_template("task_details.html", users_tasks = users_tasks, this_task = this_task[0], users_overflow_tasks = users_overflow_tasks)
 
 # ----- Updates a previously created task
 @app.route("/task_details/update", methods =["POST"])
