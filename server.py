@@ -135,7 +135,7 @@ def schedule():
     
     # searches for all tasks by the user in session
     mysql = connectToMySQL('scheduler')
-    query = "SELECT * FROM tasks WHERE users_id = %(users_id)s"
+    query = "SELECT tasks.id, tasks.users_id, tasks.task_name, overflow_tasks.id, overflow_tasks.users_id, overflow_tasks.tasks_id FROM tasks LEFT JOIN overflow_tasks ON tasks.id = overflow_tasks.tasks_id WHERE tasks.users_id = %(users_id)s AND overflow_tasks.tasks_id IS NULL"
     data = {
         "users_id": session['user_id']
     }
