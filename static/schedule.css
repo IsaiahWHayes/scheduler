@@ -1,3 +1,9 @@
+.container {
+    margin: 0 auto;
+    height: auto;
+    width: auto;
+}
+
 .section-containers {
     border: solid thin black;
 }
