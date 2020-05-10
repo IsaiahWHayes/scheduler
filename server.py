@@ -319,14 +319,15 @@ def update_task():
     mysql = connectToMySQL('scheduler')
     query = "UPDATE tasks SET task_name = %(task_name)s, start_time = %(start_time)s, end_time = %(end_time)s, location = %(location)s, category = %(category)s, contact = %(contact)s, note = %(note)s, checklist = %(list)s, created_at = NOW(), updated_at = NOW() WHERE tasks.id = %(this_task)s;"
     data = {
-        "this_task": session['detailed_task'],
         "task_name": request.form['task_name'],
+        "start_time": request.form['start_time'],
         "end_time": request.form['end_time'],
         "location": request.form['location'],
         "category": request.form['category'],
         "contact": request.form['contact'],
         "note": request.form['note'],
-        "list": request.form['checklist']
+        "list": request.form['checklist'],
+        "this_task": session['detailed_task']
     }
     mysql.query_db(query, data)
     return redirect('/schedule')
